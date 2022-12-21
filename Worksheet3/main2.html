@@ -1,0 +1,36 @@
+<html>
+
+<script id="vertex-shader" type="x-shader/x-vertex">
+    attribute vec4 a_Position;
+    attribute vec4 a_Color;
+    varying vec4 color;
+    uniform vec3 theta;
+    uniform mat4 modelLocation;
+    uniform mat4 projection;
+    uniform mat4 modelView;
+
+    void main() {
+        color = a_Color;
+        gl_Position = projection * modelView * modelLocation * a_Position;
+    }
+</script>
+<script id="fragment-shader" type="x-shader/x-fragment">
+    precision mediump float;
+    varying vec4 color;
+  
+    void main() {
+        gl_FragColor = color;
+    }
+</script>
+  
+<script type="text/javascript" src="../common/webgl-utils.js"></script>
+<script type="text/javascript" src="../common/MV.js"></script>
+<script type="text/javascript" src="../common/initShaders.js"></script>
+  <script type="text/javascript" src="q2.js"></script>
+    <body>
+        <p>Question 2:</p>
+        <canvas id="gl-canvas2" width="512" height="512">
+            Something went wrong!
+        </canvas>
+    </body>
+</html>

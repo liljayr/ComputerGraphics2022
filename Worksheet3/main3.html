@@ -1,0 +1,47 @@
+<html>
+    <head>
+      <meta charset="utf-8">
+      <title>Worksheet 3 - part2</title>
+    </head>
+  
+    <body>
+    <p>
+        Question: Reflect on the theory of affine transformations and view in
+        transformations by doing the following:
+        <ul>
+            <li>
+                List the transformation matrices that you used in Parts 1 and 2
+                (use general expressions rather than concrete numbers).
+                [Angel 4.9, 5.3-5.5]
+            </li>
+            <li>
+                For each cube, write down a formula showing how the matrices
+                were concatenated to become the current transformation matrix
+                (CTM) that was used to transform the vertices in the vertex
+                shader. [Angel 4.10-4.11]
+            </li>
+        </ul>
+    </p>
+    <p>
+        Answer: Here is an analysis of the original cube from Q1 as well as the other
+        three cubes in order:
+        <ul>
+            <li>
+                CTM = viewMatrix * modelViewMatrix
+            </li>
+            <li>
+                CTM = mvMatrix * pMatrix
+            </li>
+            <li>
+                loc = translate(1.5, 0.0, 0.0) <br>
+                CTM = mvMatrix * pMatrix
+            </li>
+            <li>
+                loc = translate(-1.5, 0.0, 0.0) <br>
+                CTM = mvMatrix * pMatrix * rotate(35)
+            </li>
+        </ul>
+    </p>
+  
+    </body>
+</html>
