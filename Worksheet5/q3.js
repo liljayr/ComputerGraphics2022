@@ -264,8 +264,8 @@ function init() {
   gl = WebGLUtils.setupWebGL(canvas);
   gl.program = initShaders( gl, "vertex-shader", "fragment-shader" );
     gl.useProgram( gl.program );
-  gl.program.a_Position = gl.getAttribLocation(gl.program, 'vPosition');
-    gl.program.a_Normal = gl.getAttribLocation(gl.program, 'vNormal');
+  gl.program.a_Position = gl.getAttribLocation(gl.program, 'a_Position');
+    gl.program.a_Normal = gl.getAttribLocation(gl.program, 'a_Normal');
     gl.program.a_Color = gl.getAttribLocation(gl.program, 'fColor');
     var at = vec3(0, 0.5, 0);
     var eye = vec3(0, 2, 2);
@@ -421,8 +421,8 @@ function enablePhongProgram(gl, phongInfo) {
 
 // function initObject(gl, obj_filename, scale){
 //     console.log("IN THIS");
-//     gl.program.a_Position = gl.getAttribLocation(gl.program, 'vPosition');
-//     gl.program.a_Normal = gl.getAttribLocation(gl.program, 'vNormal');
+//     gl.program.a_Position = gl.getAttribLocation(gl.program, 'a_Position');
+//     gl.program.a_Normal = gl.getAttribLocation(gl.program, 'a_Normal');
 //     gl.program.a_Color = gl.getAttribLocation(gl.program, 'fColor');
 //     console.log("AAAAWHYYYYYY");
 

@@ -81,13 +81,13 @@ window.onload = function init(){
    gl.bindBuffer( gl.ARRAY_BUFFER, vBuffer );
    gl.bufferData( gl.ARRAY_BUFFER, flatten(pointsArray), gl.STATIC_DRAW );
 
-   var vPosition = gl.getAttribLocation( program, "vPosition" );
-   gl.vertexAttribPointer( vPosition, 4, gl.FLOAT, false, 0, 0 );
-   gl.enableVertexAttribArray( vPosition );
+   var a_Position = gl.getAttribLocation( program, "a_Position" );
+   gl.vertexAttribPointer( a_Position, 4, gl.FLOAT, false, 0, 0 );
+   gl.enableVertexAttribArray( a_Position );
 
-   var vNormal = gl.getAttribLocation( program, "vNormal" );
-   gl.vertexAttribPointer( vNormal, 4, gl.FLOAT, false, 0, 0 );
-   gl.enableVertexAttribArray( vNormal);
+   var a_Normal = gl.getAttribLocation( program, "a_Normal" );
+   gl.vertexAttribPointer( a_Normal, 4, gl.FLOAT, false, 0, 0 );
+   gl.enableVertexAttribArray( a_Normal);
 
    modelView = gl.getUniformLocation( program, "modelView" );
    projection = gl.getUniformLocation( program, "projection" );

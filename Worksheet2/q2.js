@@ -26,9 +26,9 @@ function buffer(value_arr) {
 }
 
 function attrib(var_str) {
-    var vPos = gl.getAttribLocation(program, var_str);
-    gl.vertexAttribPointer(vPos, 2, gl.FLOAT, false, 0, 0);
-    gl.enableVertexAttribArray(vPos);
+    var a_Position = gl.getAttribLocation(program, var_str);
+    gl.vertexAttribPointer(a_Position, 2, gl.FLOAT, false, 0, 0);
+    gl.enableVertexAttribArray(a_Position);
 }
 
 function q2() {
@@ -63,34 +63,20 @@ function q2() {
     canvas.addEventListener("click", function (event){
         var bbox = event.target.getBoundingClientRect();
         mousepos = vec2(2*(event.clientX - bbox.left)/canvas.width - 1, 2*(canvas.height - event.clientY + bbox.top - 1)/canvas.height - 1);
-        // velocity = vec2((mousepos[0] - offset[0])*speed, (mousepos[1] - offset[1])*speed);
-        // vertices.push(vec2(event.clientX, event.clientY));
+
 
         // Point Vertices
         vertices.push(mousepos);
 
-        // var vBuffer = gl.createBuffer();
-        // gl.bindBuffer(gl.ARRAY_BUFFER, vBuffer);
-        // gl.bufferData(gl.ARRAY_BUFFER, flatten(vertices), gl.STATIC_DRAW);
         buffer(vertices);
 
-        // var vPos = gl.getAttribLocation(program, "a_Position");
-        // gl.vertexAttribPointer(vPos, 2, gl.FLOAT, false, 0, 0);
-        // gl.enableVertexAttribArray(vPos);
         attrib("a_Position");
 
         // Point Color
         console.log(colorCodes[colorMenu.selectedIndex]);
         colors.push(colorCodes[colorMenu.selectedIndex]);
 
-        // var colorBuffer = gl.createBuffer();
-        // gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
-        // gl.bufferData(gl.ARRAY_BUFFER, flatten(colors), gl.STATIC_DRAW);
         buffer(colors);
-
-        // var vColor = gl.getAttribLocation(program, "a_Color");
-        // gl.vertexAttribPointer(vColor, 2, gl.FLOAT, false, 0, 0);
-        // gl.enableVertexAttribArray(vColor);
         attrib("a_Color");
 
         render2(vertices.length);
@@ -108,16 +94,6 @@ function q2() {
         colors = [];
         render2(vertices.length);
     });
-
-    // var vertices = [ vec2(0.0, 0.0), vec2(1.0, 1.0), vec2(1.0, 0.0) ];
-
-    // var vBuffer = gl.createBuffer();
-    // gl.bindBuffer(gl.ARRAY_BUFFER, vBuffer);
-    // gl.bufferData(gl.ARRAY_BUFFER, flatten(vertices), gl.STATIC_DRAW);
-
-    // var vPosition = gl.getAttribLocation(program, "a_Position");
-    // gl.vertexAttribPointer(vPosition, 2, gl.FLOAT, false, 0, 0);
-    // gl.enableVertexAttribArray(vPosition);
 
     render2(vertices.length);
 }

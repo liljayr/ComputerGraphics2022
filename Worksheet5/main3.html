@@ -88,8 +88,8 @@
 
 <script id="vertex-shader" type="x-shader/x-vertex">
 
-  attribute vec4 vPosition;
-  attribute vec3 vNormal;
+  attribute vec4 a_Position;
+  attribute vec3 a_Normal;
   attribute vec4 fColor;
   
   varying vec4 Color;
@@ -101,7 +101,7 @@
   {
       Color = fColor;
   
-      gl_Position = projection * modelView * vPosition;
+      gl_Position = projection * modelView * a_Position;
   
   }
   </script>
@@ -142,8 +142,8 @@
 <!-- <!DOCTYPE html>
 <script id="vertex-shader" type="x-shader/x-vertex">
 
-attribute vec4 vPosition;
-attribute vec3 vNormal;
+attribute vec4 a_Position;
+attribute vec3 a_Normal;
 attribute vec4 fColor;
 
 varying vec4 Color;
@@ -156,7 +156,7 @@ main()
 {
     Color = fColor;
 
-    gl_Position = projection * modelView * vPosition;
+    gl_Position = projection * modelView * a_Position;
 
 }
 </script>
@@ -202,8 +202,8 @@ main()
 <!-- <html>
 
   <script id="vertex-shader" type="x-shader/x-vertex">
-    attribute vec4 vPosition;
-    attribute vec3 vNormal;
+    attribute vec4 a_Position;
+    attribute vec3 a_Normal;
     attribute vec4 fColor;
 
     varying vec4 Color;
@@ -215,7 +215,7 @@ main()
     {
         Color = fColor;
 
-        gl_Position = projection * modelView * vPosition;
+        gl_Position = projection * modelView * a_Position;
 
     }
   </script>

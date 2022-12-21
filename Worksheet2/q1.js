@@ -13,9 +13,9 @@ function buffer(value_arr) {
 }
 
 function attrib(var_str) {
-    var vPos = gl.getAttribLocation(program, var_str);
-    gl.vertexAttribPointer(vPos, 2, gl.FLOAT, false, 0, 0);
-    gl.enableVertexAttribArray(vPos);
+    var a_Position = gl.getAttribLocation(program, var_str);
+    gl.vertexAttribPointer(a_Position, 2, gl.FLOAT, false, 0, 0);
+    gl.enableVertexAttribArray(a_Position);
 }
 
 function q2() {
@@ -57,19 +57,6 @@ function q2() {
         buffer(vertices);
         attrib("a_Position");
         render2(vertices.length);
-
-        // Pont Color
-        // vertices.push(mousepos);
-
-        // var vBuffer = gl.createBuffer();
-        // gl.bindBuffer(gl.ARRAY_BUFFER, vBuffer);
-        // gl.bufferData(gl.ARRAY_BUFFER, flatten(vertices), gl.STATIC_DRAW);
-
-        // var vPos = gl.getAttribLocation(program, "a_Position");
-        // gl.vertexAttribPointer(vPos, 2, gl.FLOAT, false, 0, 0);
-        // gl.enableVertexAttribArray(vPos);
-        // render2(vertices.length);
-
     });
 
     render2(vertices.length);

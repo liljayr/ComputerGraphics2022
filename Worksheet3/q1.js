@@ -60,17 +60,17 @@ window.onload = function init(){
    gl.bindBuffer( gl.ARRAY_BUFFER, cBuffer );
    gl.bufferData( gl.ARRAY_BUFFER, flatten(colors), gl.STATIC_DRAW );
 
-   var vColor = gl.getAttribLocation( program, "a_Color" );
-   gl.vertexAttribPointer( vColor, 4, gl.FLOAT, false, 0, 0 );
-   gl.enableVertexAttribArray( vColor );
+   var a_Color = gl.getAttribLocation( program, "a_Color" );
+   gl.vertexAttribPointer( a_Color, 4, gl.FLOAT, false, 0, 0 );
+   gl.enableVertexAttribArray( a_Color );
 
    var vBuffer = gl.createBuffer();
    gl.bindBuffer( gl.ARRAY_BUFFER, vBuffer );
    gl.bufferData( gl.ARRAY_BUFFER, flatten(vertices), gl.STATIC_DRAW );
 
-   var vPosition = gl.getAttribLocation( program, "a_Position" );
-   gl.vertexAttribPointer( vPosition, 3, gl.FLOAT, false, 0, 0 );
-   gl.enableVertexAttribArray( vPosition );
+   var a_Position = gl.getAttribLocation( program, "a_Position" );
+   gl.vertexAttribPointer( a_Position, 3, gl.FLOAT, false, 0, 0 );
+   gl.enableVertexAttribArray( a_Position );
 
    var eye = vec3(0.0, 0.0, 0.0);
    var at = vec3(1.0, 1.0, 1.0);

@@ -62,9 +62,9 @@ window.onload = function init(){
   gl.bufferData( gl.ARRAY_BUFFER, sizeof['vec3']*max_verts, gl.STATIC_DRAW );
 
   // vertex color setup
-  var vColor = gl.getAttribLocation( program, "vColor" );
-  gl.vertexAttribPointer( vColor, 3, gl.FLOAT, false, 0, 0 );
-  gl.enableVertexAttribArray( vColor );
+  var a_Color = gl.getAttribLocation( program, "a_Color" );
+  gl.vertexAttribPointer( a_Color, 3, gl.FLOAT, false, 0, 0 );
+  gl.enableVertexAttribArray( a_Color );
 
   // vertex buffer setup
   var vBuffer = gl.createBuffer();
@@ -96,9 +96,9 @@ window.onload = function init(){
   });
 
   // vertex position setup
-  var vPosition = gl.getAttribLocation( program, "vPosition" );
-  gl.vertexAttribPointer( vPosition, 2, gl.FLOAT, false, 0, 0 );
-  gl.enableVertexAttribArray( vPosition );
+  var a_Position = gl.getAttribLocation( program, "a_Position" );
+  gl.vertexAttribPointer( a_Position, 2, gl.FLOAT, false, 0, 0 );
+  gl.enableVertexAttribArray( a_Position );
 
   // clear the canvas
   clearButton.addEventListener("click", function(event) {

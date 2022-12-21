@@ -177,15 +177,6 @@ function init() {
 	var materialDiffuse = 1.0;
 	var materialSpecular = 1.0;
 	var materialShininess = 100.0;
-	//TODO: Add ambient coefficient
-
-	// upload values to shader
-	// var vBuffer = gl.createBuffer();
-	// gl.bindBuffer(gl.ARRAY_BUFFER, vBuffer);
-
-	// var vPosition = gl.getAttribLocation(program, "a_Position");
-	// gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 0, 0);
-	// gl.enableVertexAttribArray(vPosition);
 
 	var uLightPosition = gl.getUniformLocation(program, "u_LightPosition");
 	gl.uniform4fv(uLightPosition, lightDirection);
