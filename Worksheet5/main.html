@@ -3,44 +3,40 @@
   <script id="vertex-shader" type="x-shader/x-vertex">
     attribute vec4 a_Position;
     attribute vec3 a_Normal;
-    attribute vec4 fColor;
+    attribute vec4 a_Color;
+    varying vec4 color;
 
-    varying vec4 Color;
-
-    uniform mat4 modelView;
+    uniform vec3 theta;
+    uniform mat4 modelLocation;
     uniform mat4 projection;
-
-    void main()
-    {
-        Color = fColor;
-
-        gl_Position = projection * modelView * a_Position;
-
+    uniform mat4 modelView;
+  
+    void main() {
+      color = a_Color;
+      gl_Position = projection * modelView * modelLocation * a_Position;
     }
   </script>
   <script id="fragment-shader" type="x-shader/x-fragment">
     precision mediump float;
+    varying vec4 color;
 
-    varying vec4 Color;
-
-    void main()
-    {
-        vec4 fColor;
-        fColor = vec4(1.0,1.0,1.0,1.0);
-
-        gl_FragColor = fColor;
+    void main() {
+        gl_FragColor = color;
     }
   </script>
   
 <script type="text/javascript" src="../common/webgl-utils.js"></script>
 <script type="text/javascript" src="../common/MV.js"></script>
+<script type="text/javascript" src="../common/MVnew.js"></script>
 <script type="text/javascript" src="../common/initShaders.js"></script>
-<!-- <script type="text/javascript" src="OBJParser.js"></script> -->
-  <script type="text/javascript" src="q3.js"></script>
+<script type="text/javascript" src="OBJParser.js"></script>
+  <script type="text/javascript" src="q2.js"></script>
     <body>
+      <p>Question 1: Run the code using "python3 -m http.server"</p>
       <p>Question 2:</p>
-      <p>Question 2:</p>
-    <canvas id="gl-canvas3" width="512" height="512">
+      <a src = "JuniperTheCatBat.obj">JuniperTheCatBat located in the worksheet 5 folder</a>
+      <p>Question 3:</p>
+    <canvas id="gl-canvas2" width="512" height="512">
       Something went wrong!
     </canvas>
   

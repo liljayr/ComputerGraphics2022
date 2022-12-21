@@ -38,12 +38,6 @@ function q2() {
 
     var max_verts = 1000;
     var index = 0; var numPoints = 0;
-    // var vBuffer = gl.createBuffer();
-    // gl.bindBuffer(gl.ARRAY_BUFFER, vBuffer);
-    // gl.bufferData(gl.ARRAY_BUFFER, max_verts*sizeof['vec2'], gl.STATIC_DRAW);
-
-    // gl.bufferSubData(gl.ARRAY_BUFFER, index*sizeof['vec2'], flatten(vertices));
-    // numPoints = Math.max(numPoints, ++index); index %= max_verts;
 
     canvas.addEventListener("click", function (event){
         var bbox = event.target.getBoundingClientRect();

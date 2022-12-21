@@ -1,4 +1,6 @@
 var gl;
+var vBuffer;
+var cBuffer;
 
 var mode = true;
 var first = true;
@@ -25,6 +27,27 @@ var baseColors = [
     vec3(0.0, 0.0, 1.0),  // blue
 ];
 
+
+function buffer(length) {
+    var tBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, tBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, length, gl.STATIC_DRAW);
+    return tBuffer;
+}
+
+function attrib(var_str, size, program) {
+    var vPos = gl.getAttribLocation(program, var_str);
+    gl.vertexAttribPointer(vPos, size, gl.FLOAT, false, 0, 0);
+    gl.enableVertexAttribArray(vPos);
+}
+
+function bind(){
+    t = vec3(baseColors[colorMenu.selectedIndex]);
+    gl.bindBuffer( gl.ARRAY_BUFFER, cBuffer );
+    gl.bufferSubData(gl.ARRAY_BUFFER, sizeof['vec3']*index, flatten(t));
+    gl.bindBuffer( gl.ARRAY_BUFFER, vBuffer );
+}
+
 window.onload = function init(){
     canvas = document.getElementById("gl-canvas3");
     gl = WebGLUtils.setupWebGL(canvas);
@@ -47,19 +70,13 @@ window.onload = function init(){
     var addTriangles = document.getElementById("drawTriangles");
 
     // color buffer setup
-    var cBuffer = gl.createBuffer();
-    gl.bindBuffer( gl.ARRAY_BUFFER, cBuffer );
-    gl.bufferData( gl.ARRAY_BUFFER, sizeof['vec3']*max_verts, gl.STATIC_DRAW );
+    cBuffer = buffer(sizeof['vec3']*max_verts);
 
     // vertex color setup
-    var a_Color = gl.getAttribLocation( program, "a_Color" );
-    gl.vertexAttribPointer( a_Color, 3, gl.FLOAT, false, 0, 0 );
-    gl.enableVertexAttribArray( a_Color );
+    attrib("a_Color", 3, program);
 
     // vertex buffer setup
-    var vBuffer = gl.createBuffer();
-    gl.bindBuffer( gl.ARRAY_BUFFER, vBuffer );
-    gl.bufferData( gl.ARRAY_BUFFER, max_verts, gl.STATIC_DRAW );
+    vBuffer = buffer(max_verts);
 
     // triangle-button clicked
     addTriangles.addEventListener("click", function(event){
@@ -74,9 +91,7 @@ window.onload = function init(){
     });
 
     // vertex position setup
-    var a_Position = gl.getAttribLocation( program, "a_Position" );
-    gl.vertexAttribPointer( a_Position, 2, gl.FLOAT, false, 0, 0 );
-    gl.enableVertexAttribArray( a_Position );
+    attrib("a_Position", 2, program)
 
     // clear the canvas
     clearButton.addEventListener("click", function(event) {
@@ -102,10 +117,7 @@ window.onload = function init(){
     mousepos = vec2(2*(ev.clientX - bbox.left)/canvas.width - 1, 2*(canvas.height - ev.clientY + bbox.top - 1)/canvas.height - 1);
 
     if(mode){
-        t = vec3(baseColors[colorMenu.selectedIndex]);
-        gl.bindBuffer( gl.ARRAY_BUFFER, cBuffer );
-        gl.bufferSubData(gl.ARRAY_BUFFER, sizeof['vec3']*index, flatten(t));
-        gl.bindBuffer( gl.ARRAY_BUFFER, vBuffer );
+        bind();
 
         points.push(index);
         t1 = mousepos;
@@ -116,10 +128,7 @@ window.onload = function init(){
         console.log(mousepos);
 
         if(first){
-            t = vec3(baseColors[colorMenu.selectedIndex]);
-            gl.bindBuffer( gl.ARRAY_BUFFER, cBuffer );
-            gl.bufferSubData(gl.ARRAY_BUFFER, sizeof['vec3']*index, flatten(t));
-            gl.bindBuffer( gl.ARRAY_BUFFER, vBuffer );
+            bind();
 
             points.push(index);
             t1 = vec2(mousepos);
@@ -131,10 +140,7 @@ window.onload = function init(){
 
         } else if (second) {
             colors.push(index);
-            t = vec3(baseColors[colorMenu.selectedIndex]);
-            gl.bindBuffer( gl.ARRAY_BUFFER, cBuffer );
-            gl.bufferSubData(gl.ARRAY_BUFFER, sizeof['vec3']*index, flatten(t));
-            gl.bindBuffer( gl.ARRAY_BUFFER, vBuffer );
+            bind();
 
             points.push(index);
             t2 = vec2(mousepos);
@@ -145,11 +151,7 @@ window.onload = function init(){
             third = true;
 
         } else{
-            t = vec3(baseColors[colorMenu.selectedIndex]);
-            gl.bindBuffer( gl.ARRAY_BUFFER, cBuffer );
-            gl.bufferSubData(gl.ARRAY_BUFFER, sizeof['vec3']*index, flatten(t));
-
-            gl.bindBuffer( gl.ARRAY_BUFFER, vBuffer );
+            bind();
 
             points.pop();
             triangles.push(points.pop());

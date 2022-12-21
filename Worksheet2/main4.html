@@ -1,101 +1,57 @@
-<!DOCTYPE html>
-
+<html>
 <script id="vertex-shader" type="x-shader/x-vertex">
-  attribute vec2 a_Position;
-  attribute vec3 a_Color;
-  varying vec4 color;
+    attribute vec2 a_Position;
+    attribute vec3 a_Color;
+    varying vec4 color;
 
-  void main(){
-    gl_PointSize = 5.0;
+    void main() {
     gl_Position = vec4(a_Position, 0.0, 1.0);
+    gl_PointSize = 20.0;
     color = vec4(a_Color, 1.0);
-  }
+    }
 </script>
 <script id="fragment-shader" type="x-shader/x-fragment">
-  precision mediump float;
-  varying vec4 color;
+    precision mediump float;
+    varying vec4 color;
 
-  void main(){
+    void main() {
     gl_FragColor = color;
-  }
+    }
 </script>
-
-
 <script type="text/javascript" src="../common/webgl-utils.js"></script>
-<script type="text/javascript" src="../common/MV.js"></script>
 <script type="text/javascript" src="../common/initShaders.js"></script>
-<script type="text/javascript" src="q4.js"></script>
-<html lang="en" dir="ltr">
-  <head>
-  <!--  <link rel="stylesheet" href="../../css/worksheet_css.css"> -->
-    <meta charset="utf-8">
-    <title>Worksheet 2 - part4</title>
-  </head>
-
-  <body>
-    <center>
-  <table style="width: 0%;" >
-  <tbody>
-  <tr>
-  <td>
-      <canvas id="gl-Canvas" width="512" height="512">
-        Something went wrong!
-      </canvas>
-  </td>
-  <td>
-    <table style="width: 0%;background-color: #8B8B8D;" >
-    <tbody>
-    <tr>
-
-    <td>
-      <font color="white">Drawing mode:
-        <br>
-<button id="addPoints">Points</button> <button id="addTriangles">Triangles</button> <button id="addCircles">Circles</button>
-
-    </td>
-    <td></td>
-    </tr>
-    <tr>
-
-    <td>
-      <br>
-      <font color="white">Color:
-        <br>
-      <select id="colorMenu" size="4">
-      <option value="0" selected>Black</option>
-      <option value="1">Red</option>
-      <option value="2">Green</option>
-      <option value="3">Blue</option>
-      </select>
-    </td>
-    <td></td>
-    </tr>
-    <tr>
-    <td><br>
-      <font color="white">Canvas color:
-        <br>
-      <select id="clearMenu" size="4">
-        <option value="0" selected>Black</option>
-        <option value="1">Red</option>
-        <option value="2">Green</option>
-        <option value="3">Blue</option>
-      </select>
-    </td>
-    <td></td>
-    </tr>
-    <tr>
-    <td><button id="clearButton">Clear Canvas</button><br><button id="logButton">Debug</button></td>
-    <td>&nbsp;</td>
-    </tr>
-    </tbody>
-    </table>
-  </td>
-  </tr>
-  </tbody>
-  </table>
-  <br><br>
-  <input type="button" value="Close this window" onclick="self.close()">
-  </center>
-
-  </body>
+<script type="text/javascript" src="../common/MV.js"></script>
+<script type="text/javascript" src="q3.js"></script>
+<body>
+    <p>Question 2:</p>
+    <canvas id="gl-canvas3" width="512" height="512">
+        <!-- The following message is displayed if the browser doesn’t
+        -- support HTML5 -->
+        Sorry; your web browser does not support HTML5's canvas element.
+    </canvas>
+    <select id="colorMenu" size=”8”>
+        <option value=”0” selected>Black</option>
+        <option value=”1”>Red</option>
+        <option value=”2”>Yellow</option>
+        <option value=”3”>Green</option>
+        <option value=”4”>Blue</option>
+        <option value=”5”>Magenta</option>
+        <option value=”6”>Cyan</option>
+        <option value=”7”>Cornflower</option>
+    </select>
+    <select id="clearMenu" size=”1”>
+        <option value=”0”>Black</option>
+        <option value=”1”>Red</option>
+        <option value=”2”>Yellow</option>
+        <option value=”3”>Green</option>
+        <option value=”4”>Blue</option>
+        <option value=”5”>Magenta</option>
+        <option value=”6”>Cyan</option>
+        <option value=”7” selected>Cornflower</option>
+    </select><br/>
+    <button id="clearButton">Clear Canvas</button>
+    <button id="drawPoints">Draw Points</button>
+    <button id="drawTriangles">Draw Triangles</button>
+    <button id="drawCircles">Draw Circles</button>
+</body>
 </html>

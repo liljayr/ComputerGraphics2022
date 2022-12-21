@@ -34,14 +34,14 @@ var colors = [
 ];
 
 var cubeVertices = [
-    vec3( -0.5, -0.5,  0.5 ),
-    vec3( -0.5,  0.5,  0.5 ),
-    vec3(  0.5,  0.5,  0.5 ),
-    vec3(  0.5, -0.5,  0.5 ),
-    vec3( -0.5, -0.5, -0.5 ),
-    vec3( -0.5,  0.5, -0.5 ),
-    vec3(  0.5,  0.5, -0.5 ),
-    vec3(  0.5, -0.5, -0.5 )
+    vec3( -0.1, -0.1,  0.1 ),
+    vec3( -0.1,  0.1,  0.1 ),
+    vec3(  0.1,  0.1,  0.1 ),
+    vec3(  0.1, -0.1,  0.1 ),
+    vec3( -0.1, -0.1, -0.1 ),
+    vec3( -0.1,  0.1, -0.1 ),
+    vec3(  0.1,  0.1, -0.1 ),
+    vec3(  0.1, -0.1, -0.1 )
 ];
 
 var indices = [
@@ -64,11 +64,11 @@ const colorCodes = {
     7: vec3(0.3921, 0.5843, 0.9294), // Cornflower
 };
 
-function renderCube() {
+function renderCube(x, y) {
     eye = vec3(0.0,0.0,-6.0);
     mvMatrix = lookAt(eye, at , up);
     pMatrix = perspective(fovy, aspect, near, far);
-    loc = translate(0.0, 0.0, 0.0);
+    loc = translate(x, y, 0.0); //(x, y, z)
 
     gl.uniformMatrix4fv(modelLocation, false, flatten(loc));
     gl.uniformMatrix4fv( modelView, false, flatten(mvMatrix) );
@@ -79,6 +79,7 @@ function renderCube() {
 }
 
 function render(len) {
+    console.log("rendering")
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     gl.clear( gl.COLOR_BUFFER_BIT );
 
@@ -102,23 +103,29 @@ function attrib(var_str) {
 function randomCoord() {
     let max = 1;
     let min = -1;
-    let x = Math.random()* (max - min) + min;
-    let y = Math.random()* (max - min) + min;
+    let x = Math.random() * (max - min) + min;
+    let y = Math.random() * (max - min) + min;
     return vec2(x,y);
 }
 
 function newPoint() {
     vertices.pop();
 
-    // bbox = event.target.getBoundingClientRect();
     coord = randomCoord();
     
     vertices.push(coord);
-    console.log("hhhh");
-    console.log(coord);
 
     buffer(vertices);
     attrib("a_Position");
+}
+
+function newCube() {
+    coord = randomCoord();
+    renderCube(coord[0], coord[1]);
+
+    buffer(vertices);
+    attrib("a_Position");
+    console.log("new cube");
 }
 
 function q2() {
@@ -145,8 +152,6 @@ function q2() {
     coord = randomCoord();
     vertices.push(coord);
 
-    // rotating square from worksheet1 main4 TODO
-
     // buffer(vertices);
 
     // var iBuffer = gl.createBuffer();
@@ -161,12 +166,20 @@ function q2() {
     // gl.vertexAttribPointer( vColor, 4, gl.FLOAT, false, 0, 0 );
     // gl.enableVertexAttribArray( vColor );
 
+    var vBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, vBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, flatten(cubeVertices), gl.STATIC_DRAW);
+
+    var a_Position = gl.getAttribLocation(program, "a_Position");
+    gl.vertexAttribPointer(a_Position, 3, gl.FLOAT, false, 0, 0);
+    gl.enableVertexAttribArray(a_Position);
+
     // buffer(cubeVertices);
     buffer(vertices);
     attrib("a_Position");
 
-    modelView = gl.getUniformLocation( program, "modelView" );
-    projection = gl.getUniformLocation( program, "projection" );
+    modelView = gl.getUniformLocation(program, "modelView");
+    projection = gl.getUniformLocation(program, "projection");
     modelLocation = gl.getUniformLocation(program, "modelLocation");
 
     var textCanvas = document.querySelector("#text");
@@ -176,51 +189,46 @@ function q2() {
     // attrib("a_Color");
 
     render(vertices.length);
-    // renderCube();
+    // renderCube(coord[0], coord[1]);
     console.log("aaaa");
 
     canvas.addEventListener("click", function (event){
         bbox = event.target.getBoundingClientRect();
         var clickX = 2*(event.clientX - bbox.left)/canvas.width - 1;
         var clickY = 2*(canvas.height - event.clientY + bbox.top - 1)/canvas.height - 1;
-        // console.log("Coords");
+
+        var newClickX = vec2(((clickX-0.04)), ((clickX+0.04)));
+        var newClickY = vec2(((clickY-0.04)), ((clickY+0.04)));
+
+        // console.log("coords");
         // console.log(coord[0], coord[1]);
-        // console.log("x Y");
-        // console.log(clickX, clickY);
-        var newClickX = vec2(clickX-0.04, clickX+0.04);
-        var newClickY = vec2(clickY-0.04, clickY+0.04);
-        // console.log("ggggg");
+        // console.log("click");
         // console.log(newClickX, newClickY);
-        // console.log(newClickX[0] <= coord[0]);
-        // console.log(coord[0] <= newClickX[1]);
-        // console.log();
-        // console.log();
+
         if((newClickX[0] <= coord[0] && coord[0] <= newClickX[1]) && (newClickY[0] <= coord[1] && coord[1] <= newClickY[1])){
             console.log("yay");
         
             newPoint();
 
             score = score + 1;
-            console.log(score);
 
             render(vertices.length);
+            // renderCube();
+            // newCube();
         }
     });
 
     // Get HTML elements
-    // var clearMenu = document.getElementById("clearMenu");
-    // var clearButton = document.getElementById("clearButton");
+    var restartGame = document.getElementById("restartGame");
 
-    // // Clear Canvas
-    // clearButton.addEventListener("click", function(event) {
-    //     var bgcolor = colorCodes[clearMenu.selectedIndex];
-    //     gl.clearColor(bgcolor[0], bgcolor[1], bgcolor[2], 1.0);
-    //     vertices = [];
-    //     colors = [];
-    //     render(vertices.length);
-    // });
-
-    // render(vertices.length);
+    // Restart Game
+    restartGame.addEventListener("click", function(event) {
+        score = 0;
+        newPoint();
+        render(vertices.length);
+        // renderCube();
+        // newCube();
+    })
 }
 
 window.onload = function init()

@@ -1,4 +1,18 @@
 <html>
+<!-- <script id="vertex-shader" type="x-shader/x-vertex">
+    attribute vec4 a_Position;
+    attribute vec4 a_Color;
+    varying vec4 color;
+    uniform vec3 theta;
+    uniform mat4 modelLocation;
+    uniform mat4 projection;
+    uniform mat4 modelView;
+
+    void main() {
+        color = a_Color;
+        gl_Position = projection * modelView * modelLocation * a_Position;
+    }
+</script> -->
 <script id="vertex-shader" type="x-shader/x-vertex">
     attribute vec2 a_Position;
     attribute vec3 a_Color;
@@ -7,28 +21,11 @@
     uniform mat4 modelViewMatrix;
 
     void main() {
-    gl_Position = vec4(a_Position, 0.0, 1.0);
-    gl_PointSize = 20.0;
-    color = vec4(a_Color, 1.0);
+      gl_Position = vec4(a_Position, 0.0, 1.0);
+      gl_PointSize = 20.0;
+      color = vec4(a_Color, 1.0);
     }
 </script>
-<!-- <script id="vertex-shader" type="x-shader/x-vertex">
-  attribute vec4 a_Position;
-  attribute vec4 a_Color;
-  varying vec4 color;
-  uniform vec3 theta;
-  uniform mat4 modelLocation;
-  uniform mat4 projection;
-  uniform mat4 modelView;
-
-  void main(){
-
-    color = a_Color;
-    gl_Position = projection * modelView * modelLocation * a_Position;
-
-
-  }
-</script> -->
 <script id="fragment-shader" type="x-shader/x-fragment">
     precision mediump float;
     varying vec4 color;
@@ -42,33 +39,13 @@
 <script type="text/javascript" src="../common/MV.js"></script>
 <script type="text/javascript" src="init.js"></script>
 <body>
-    <p>Question 2:</p>
+    <p>Blast Game:</p>
     <canvas id="gl-canvas" width="512" height="512">
         <!-- The following message is displayed if the browser doesn’t
         -- support HTML5 -->
         Sorry; your web browser does not support HTML5's canvas element.
     </canvas>
     <canvas id="text"></canvas>
-    <select id="colorMenu" size=”8”>
-        <option value=”0” selected>Black</option>
-        <option value=”1”>Red</option>
-        <option value=”2”>Yellow</option>
-        <option value=”3”>Green</option>
-        <option value=”4”>Blue</option>
-        <option value=”5”>Magenta</option>
-        <option value=”6”>Cyan</option>
-        <option value=”7”>Cornflower</option>
-    </select>
-    <select id="clearMenu" size=”1”>
-        <option value=”0”>Black</option>
-        <option value=”1”>Red</option>
-        <option value=”2”>Yellow</option>
-        <option value=”3”>Green</option>
-        <option value=”4”>Blue</option>
-        <option value=”5”>Magenta</option>
-        <option value=”6”>Cyan</option>
-        <option value=”7” selected>Cornflower</option>
-    </select><br/>
-    <button id="clearButton">Clear Canvas</button>
+    <button id="restartGame">Restart Game</button>
 </body>
 </html>

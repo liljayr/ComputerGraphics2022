@@ -1,5 +1,5 @@
 <html>
-    <script id="vertex-shader" type="x-shader/x-vertex">
+<script id="vertex-shader" type="x-shader/x-vertex">
     attribute vec4 a_Position;
     attribute vec4 a_Normal;
     varying vec4 fColor;
@@ -10,35 +10,32 @@
     uniform mat4 modelView;
     uniform vec4 lightPosition;
     uniform float shininess;
+    void main() {
   
-  
-  
-    void main(){
-  
-      vec3 pos = -(modelView * a_Position).xyz;
-      vec3 light = lightPosition.xyz;
-      vec3 L = normalize(light -pos);
-      vec3 E = normalize(-pos);
-      vec3 H = normalize(L+E);
-      vec3 N = normalize((modelView * a_Normal).xyz);
-  
-      vec4 ambient = ambientProduct;
-  
-      float Kd = max(dot(L,N),0.0);
-      vec4 diffuse = Kd * diffuseProduct;
-  
-      float Ks = pow(max(dot(N,H), 0.0), shininess);
-      vec4 specular = Ks * specularProduct;
-  
-      if(dot(L,N) < 0.0) {
-        specular = vec4(0.0,0.0,0.0,1.0);
-      }
-  
-      fColor = ambient + diffuse + specular;
-      fColor.a = 1.0;
-  
-      gl_Position = modelView * a_Position * projection;
-      fPosition = a_Position;
+        vec3 pos = -(modelView * a_Position).xyz;
+        vec3 light = lightPosition.xyz;
+        vec3 L = normalize(light -pos);
+        vec3 E = normalize(-pos);
+        vec3 H = normalize(L+E);
+        vec3 N = normalize((modelView * a_Normal).xyz);
+
+        vec4 ambient = ambientProduct;
+
+        float k_d = max(dot(L,N),0.0);
+        vec4 diffuse = k_d * diffuseProduct;
+
+        float k_s = pow(max(dot(N,H), 0.0), shininess);
+        vec4 specular = k_s * specularProduct;
+
+        if(dot(L,N) < 0.0) {
+            specular = vec4(0.0,0.0,0.0,1.0);
+        }
+
+        fColor = ambient + diffuse + specular;
+        fColor.a = 1.0;
+
+        gl_Position = modelView * a_Position * projection;
+        fPosition = a_Position;
   
     }
   </script>
@@ -48,12 +45,9 @@
     varying vec4 fPosition;
   
     void main(){
-  
       gl_FragColor = 0.5 * fPosition + 0.5;
-  
     }
   </script>
-  
   
   <script type="text/javascript" src="../common/webgl-utils.js"></script>
   <script type="text/javascript" src="../common/MV.js"></script>
@@ -68,6 +62,5 @@
     </canvas>
     <button id="buttonInc">Increase</button>
     <button id="buttonDec">Decrease</button>
-
     </body>
   </html>
